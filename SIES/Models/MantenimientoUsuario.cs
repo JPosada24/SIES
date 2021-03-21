@@ -19,6 +19,8 @@ namespace SIES.Models
             con = new SqlConnection(constr);
         }
 
+        //INSERT
+
         public int AgregarUsuario(Usuario usu)
         {
             Conectar();
@@ -63,6 +65,81 @@ namespace SIES.Models
             int i = comando.ExecuteNonQuery();
             con.Close();
             return i;
+        }
+
+        // RECUPERAR TODOS (SELECT ALL)
+
+        public List<Usuario> RecuperarTodo()
+        {
+            Conectar();
+            List<Usuario> usuarios = new List<Usuario>();
+
+            SqlCommand com = new SqlCommand("select * from SIE_usuarios", con);
+            con.Open();
+            SqlDataReader datos = com.ExecuteReader();
+
+            while (datos.Read())
+            {
+                Usuario usu = new Usuario
+                {
+                    Documento = int.Parse(datos["usu_documento"].ToString()),
+                    TipoDoc = datos["usu_tipoDoc"].ToString(),
+                    Nombre = datos["usu_nombre"].ToString(),
+                    Celular = int.Parse(datos["usu_celular"].ToString()),
+                    Email = datos["usu_email"].ToString(),
+                    Genero = datos["usu_genero"].ToString(),
+                    Aprendiz = datos["usu_aprendiz"].ToString(),
+                    Egresado = datos["usu_egresado"].ToString(),
+                    AreaFormacion = datos["usu_areaFormacion"].ToString(),
+                    FechaEgresado = DateTime.Parse(datos["usu_fechaEgresado"].ToString()),
+                    Direccion = datos["usu_direccion"].ToString(),
+                    Barrio = datos["usu_barrio"].ToString(),
+                    Ciudad = datos["usu_ciudad"].ToString(),
+                    Departamento = datos["usu_departamento"].ToString(),
+                    FechaRegistro = DateTime.Parse(datos["usu_fechaRegistro"].ToString())
+
+                };
+                usuarios.Add(usu);
+            }
+            con.Close();
+            return usuarios;
+        }
+
+        // RECUPERAR POR AREA DE FORMACION -> SELECT_AREAFORMACION
+
+        public Usuario RecuperarArea(string area)
+        {
+            Conectar();
+            SqlCommand com = new SqlCommand("select * from SIE_usuarios where usu_areaFormacion = @usu_areaFormacion", con);
+            com.Parameters.Add("@usu_areaFormacion", SqlDbType.VarChar);
+            com.Parameters["@usu_areaFormacion"].Value = area;
+
+            con.Open();
+
+            SqlDataReader datos = com.ExecuteReader();
+            Usuario usuario = new Usuario();
+
+            if (datos.Read())
+            {
+                usuario.Documento = int.Parse(datos["usu_documento"].ToString());
+                usuario.TipoDoc = datos["usu_tipoDoc"].ToString();
+                usuario.Nombre = datos["usu_nombre"].ToString();
+                usuario.Celular = int.Parse(datos["usu_celular"].ToString());
+                usuario.Email = datos["usu_email"].ToString();
+                usuario.Genero = datos["usu_genero"].ToString();
+                usuario.Aprendiz = datos["usu_aprendiz"].ToString();
+                usuario.Egresado = datos["usu_egresado"].ToString();
+                usuario.AreaFormacion = datos["usu_areaFormacion"].ToString();
+                usuario.FechaEgresado = DateTime.Parse(datos["usu_fechaEgresado"].ToString());
+                usuario.Direccion = datos["usu_direccion"].ToString();
+                usuario.Barrio = datos["usu_barrio"].ToString();
+                usuario.Ciudad = datos["usu_ciudad"].ToString();
+                usuario.Departamento = datos["usu_departamento"].ToString();
+                usuario.FechaRegistro = DateTime.Parse(datos["usu_fechaRegistro"].ToString());
+            }
+
+            con.Close();
+            return usuario;
         }
     }
 }

@@ -50,7 +50,7 @@ namespace SIES.Controllers
                 Aprendiz = collection["usu_aprendiz"],
                 Egresado = collection["usu_egresado"],
                 AreaFormacion = collection["usu_areaFormacion"],
-                FechaEgresado = DateTime.Parse(collection["usu_fechaEgresado"].ToString()),
+                FechaEgresado = DateTime.Parse(collection["usu_fechaEgresado"]),
                 Direccion = collection["usu_direccion"],
                 Barrio = collection["usu_barrio"],
                 Ciudad = collection["usu_ciudad"],

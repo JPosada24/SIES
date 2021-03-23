@@ -24,10 +24,7 @@ namespace SIES.Models
         public int AgregarUsuario(Usuario usu)
         {
             Conectar();
-            SqlCommand comando = new SqlCommand("INSERT INTO usuarios(usu_documento, usu_tipoDoc, usu_nombre, usu_celular, usu_email, " +
-                "usu_genero, usu_aprendiz, usu_egresado, usu_areaFormacion, usu_fechaEgresado, usu_direccion, usu_barrio, usu_ciudad, " +
-                "usu_departamento, usu_fechaRegistro)" +
-                " VALUES(@usu_documento, @usu_tipoDoc, @usu_nombre, @usu_celular, @usu_email, @usu_genero, @usu_aprendiz, @usu_egresado, @usu_areaFormacion, @usu_fechaEgresado, @usu_direccion, @usu_barrio, @usu_ciudad, @usu_departamento, @usu_fechaRegistro)", con);
+            SqlCommand comando = new SqlCommand("INSERT INTO usuarios(usu_documento, usu_tipoDoc, usu_nombre, usu_celular, usu_email, usu_genero, usu_aprendiz, usu_egresado, usu_areaFormacion, usu_fechaEgresado, usu_direccion, usu_barrio, usu_ciudad, usu_departamento, usu_fechaRegistro) VALUES (@usu_documento, @usu_tipoDoc, @usu_nombre, @usu_celular, @usu_email, @usu_genero, @usu_aprendiz, @usu_egresado, @usu_areaFormacion, @usu_fechaEgresado, @usu_direccion, @usu_barrio, @usu_ciudad, @usu_departamento, @usu_fechaRegistro)", con);
 
             comando.Parameters.Add("@usu_documento", SqlDbType.BigInt);
             comando.Parameters.Add("@usu_tipoDoc", SqlDbType.VarChar);
@@ -38,12 +35,12 @@ namespace SIES.Models
             comando.Parameters.Add("@usu_aprendiz", SqlDbType.VarChar);
             comando.Parameters.Add("@usu_egresado", SqlDbType.VarChar);
             comando.Parameters.Add("@usu_areaFormacion", SqlDbType.VarChar);
-            comando.Parameters.Add("@usu_fechaEgresado", SqlDbType.DateTime);
+            comando.Parameters.Add("@usu_fechaEgresado", SqlDbType.Date);
             comando.Parameters.Add("@usu_direccion", SqlDbType.VarChar);
             comando.Parameters.Add("@usu_barrio", SqlDbType.VarChar);
             comando.Parameters.Add("@usu_ciudad", SqlDbType.VarChar);
             comando.Parameters.Add("@usu_departamento", SqlDbType.VarChar);
-            comando.Parameters.Add("@usu_fechaRegistro", SqlDbType.DateTime);
+            comando.Parameters.Add("@usu_fechaRegistro", SqlDbType.Date);
 
             comando.Parameters["@usu_documento"].Value = usu.Documento;
             comando.Parameters["@usu_tipoDoc"].Value = usu.TipoDoc;
@@ -59,7 +56,7 @@ namespace SIES.Models
             comando.Parameters["@usu_barrio"].Value = usu.Barrio;
             comando.Parameters["@usu_ciudad"].Value = usu.Ciudad;
             comando.Parameters["@usu_departamento"].Value = usu.Departamento;
-            comando.Parameters["@usu_fechaRegistro"].Value = DateTime.Today;
+            comando.Parameters["@usu_fechaRegistro"].Value = usu.FechaRegistro;
 
             con.Open();
             int i = comando.ExecuteNonQuery();
@@ -82,10 +79,10 @@ namespace SIES.Models
             {
                 Usuario usu = new Usuario
                 {
-                    Documento = long.Parse(datos["usu_documento"].ToString()),
+                    Documento = int.Parse(datos["usu_documento"].ToString()),
                     TipoDoc = datos["usu_tipoDoc"].ToString(),
                     Nombre = datos["usu_nombre"].ToString(),
-                    Celular =long.Parse(datos["usu_celular"].ToString()),
+                    Celular = int.Parse(datos["usu_celular"].ToString()),
                     Email = datos["usu_email"].ToString(),
                     Genero = datos["usu_genero"].ToString(),
                     Aprendiz = datos["usu_aprendiz"].ToString(),
@@ -124,10 +121,10 @@ namespace SIES.Models
             {
                 Usuario usu = new Usuario
                 {
-                    Documento = long.Parse(datos["usu_documento"].ToString()),
+                    Documento = int.Parse(datos["usu_documento"].ToString()),
                     TipoDoc = datos["usu_tipoDoc"].ToString(),
                     Nombre = datos["usu_nombre"].ToString(),
-                    Celular = long.Parse(datos["usu_celular"].ToString()),
+                    Celular = int.Parse(datos["usu_celular"].ToString()),
                     Email = datos["usu_email"].ToString(),
                     Genero = datos["usu_genero"].ToString(),
                     Aprendiz = datos["usu_aprendiz"].ToString(),
@@ -164,10 +161,10 @@ namespace SIES.Models
 
             if (datos.Read())
             {
-                usuario.Documento = long.Parse(datos["usu_documento"].ToString());
+                usuario.Documento = int.Parse(datos["usu_documento"].ToString());
                 usuario.TipoDoc = datos["usu_tipoDoc"].ToString();
                 usuario.Nombre = datos["usu_nombre"].ToString();
-                usuario.Celular = long.Parse(datos["usu_celular"].ToString());
+                usuario.Celular = int.Parse(datos["usu_celular"].ToString());
                 usuario.Email = datos["usu_email"].ToString();
                 usuario.Genero = datos["usu_genero"].ToString();
                 usuario.Aprendiz = datos["usu_aprendiz"].ToString();
@@ -191,7 +188,7 @@ namespace SIES.Models
         {
             Conectar();
             SqlCommand com = new SqlCommand("select * from usuarios where usu_documento = @usu_documento", con);
-            com.Parameters.Add("@usu_documento", SqlDbType.VarChar);
+            com.Parameters.Add("@usu_documento", SqlDbType.BigInt);
             com.Parameters["@usu_documento"].Value = documento;
 
             con.Open();
@@ -201,10 +198,10 @@ namespace SIES.Models
 
             if (datos.Read())
             {
-                usuario.Documento = long.Parse(datos["usu_documento"].ToString());
+                usuario.Documento = int.Parse(datos["usu_documento"].ToString());
                 usuario.TipoDoc = datos["usu_tipoDoc"].ToString();
                 usuario.Nombre = datos["usu_nombre"].ToString();
-                usuario.Celular = long.Parse(datos["usu_celular"].ToString());
+                usuario.Celular = int.Parse(datos["usu_celular"].ToString());
                 usuario.Email = datos["usu_email"].ToString();
                 usuario.Genero = datos["usu_genero"].ToString();
                 usuario.Aprendiz = datos["usu_aprendiz"].ToString();
@@ -231,6 +228,9 @@ namespace SIES.Models
                 "usu_celular = @usu_celular, usu_email = @usu_email, usu_genero = @usu_genero, usu_aprendiz = @usu_aprendiz, usu_egresado = @usu_egresado," +
                 "usu_areaFormacion = @usu_areaFormacion, usu_fechaEgresado = @usu_fechaEgresado, usu_direccion = @usu_direccion, usu_barrio = @usu_barrio," +
                 "usu_ciudad = @usu_ciudad, usu_departamento = @usu_departamento, usu_fechaRegistro = @usu_fechaRegistro where usu_id = @usu_id", con);
+
+            comando.Parameters.Add("@usu_id", SqlDbType.Int);
+            comando.Parameters["@usu_id"].Value = usu.Id;
 
             comando.Parameters.Add("@usu_documento", SqlDbType.BigInt);
             comando.Parameters["@usu_documento"].Value = usu.Documento;
@@ -289,10 +289,10 @@ namespace SIES.Models
         {
             Conectar();
 
-            SqlCommand comando = new SqlCommand("delete from usuarios where usu_id = @usu_id", con);
+            SqlCommand comando = new SqlCommand("delete from usuarios where usu_documento = @usu_documento", con);
 
-            comando.Parameters.Add("@usu_id", SqlDbType.Int);
-            comando.Parameters["@usu_id"].Value = id;
+            comando.Parameters.Add("@usu_documento", SqlDbType.Int);
+            comando.Parameters["@usu_documento"].Value = id;
 
             con.Open();
             int i = comando.ExecuteNonQuery();

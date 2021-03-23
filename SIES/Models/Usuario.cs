@@ -10,11 +10,11 @@ namespace SIES.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El documento es obligatorio.")]
-        public long Documento { get; set; }
+        public int Documento { get; set; }
         public string TipoDoc { get; set; }
         [Required(ErrorMessage = "El campo nombre es obligatorio.")]
         public string Nombre { get; set; }
-        public long Celular { get; set; }
+        public int Celular { get; set; }
         [Required(ErrorMessage = "Ingrese un correo válido.")]
         public string Email { get; set; }
         [RegularExpression("[MmFf]", ErrorMessage = "Solo puede ingresar una M o F")]

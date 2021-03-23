@@ -26,7 +26,7 @@ namespace SIES.Controllers
         public ActionResult Details(int id)
         {
             MantenimientoUsuario mu = new MantenimientoUsuario();
-            Usuario usu = mu.RecuperarDocumento(id);
+            Usuario usu = mu.RecuperarId(id);
             return View(usu);
         }
 
@@ -68,7 +68,7 @@ namespace SIES.Controllers
         public ActionResult Edit(int id)
         {
             MantenimientoUsuario mu = new MantenimientoUsuario();
-            Usuario usu = mu.RecuperarDocumento(id);
+            Usuario usu = mu.RecuperarId(id);
             return View(usu);
         }
 
@@ -104,7 +104,7 @@ namespace SIES.Controllers
         public ActionResult Delete(int id)
         {
             MantenimientoUsuario mu = new MantenimientoUsuario();
-            Usuario usu = mu.RecuperarDocumento(id);
+            Usuario usu = mu.RecuperarId(id);
             return View(usu);
         }
 

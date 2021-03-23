@@ -79,6 +79,7 @@ namespace SIES.Models
             {
                 Usuario usu = new Usuario
                 {
+                    Id = int.Parse(datos["usu_id"].ToString()),
                     Documento = int.Parse(datos["usu_documento"].ToString()),
                     TipoDoc = datos["usu_tipoDoc"].ToString(),
                     Nombre = datos["usu_nombre"].ToString(),
@@ -184,12 +185,12 @@ namespace SIES.Models
 
         // RECUPERAR POR DOCUMENTO -> SELECT_DOCUMENTO
 
-        public Usuario RecuperarDocumento(int documento)
+        public Usuario RecuperarId(int id)
         {
             Conectar();
-            SqlCommand com = new SqlCommand("select * from usuarios where usu_documento = @usu_documento", con);
-            com.Parameters.Add("@usu_documento", SqlDbType.BigInt);
-            com.Parameters["@usu_documento"].Value = documento;
+            SqlCommand com = new SqlCommand("select * from usuarios where usu_id = @usu_id", con);
+            com.Parameters.Add("@usu_id", SqlDbType.Int);
+            com.Parameters["@usu_id"].Value = id;
 
             con.Open();
 
@@ -198,6 +199,7 @@ namespace SIES.Models
 
             if (datos.Read())
             {
+                usuario.Id = int.Parse(datos["usu_id"].ToString());
                 usuario.Documento = int.Parse(datos["usu_documento"].ToString());
                 usuario.TipoDoc = datos["usu_tipoDoc"].ToString();
                 usuario.Nombre = datos["usu_nombre"].ToString();
@@ -289,10 +291,10 @@ namespace SIES.Models
         {
             Conectar();
 
-            SqlCommand comando = new SqlCommand("delete from usuarios where usu_documento = @usu_documento", con);
+            SqlCommand comando = new SqlCommand("delete from usuarios where usu_id = @usu_id", con);
 
-            comando.Parameters.Add("@usu_documento", SqlDbType.Int);
-            comando.Parameters["@usu_documento"].Value = id;
+            comando.Parameters.Add("@usu_id", SqlDbType.Int);
+            comando.Parameters["@usu_id"].Value = id;
 
             con.Open();
             int i = comando.ExecuteNonQuery();

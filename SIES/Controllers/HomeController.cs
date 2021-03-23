@@ -12,9 +12,15 @@ namespace SIES.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult ConsultarTodos()
+        {
             MantenimientoUsuario mu = new MantenimientoUsuario();
             return View(mu.RecuperarTodo());
         }
+
 
         // GET: Home/Details/5
         public ActionResult Details(int id)
@@ -32,16 +38,28 @@ namespace SIES.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
+            MantenimientoUsuario mu = new MantenimientoUsuario();
+            Usuario usu = new Usuario
             {
-                // TODO: Add insert logic here
+                Documento = long.Parse(collection["usu_documento"]),
+                TipoDoc = collection["usu_tipoDoc"],
+                Nombre = collection["usu_nombre"],
+                Celular = long.Parse(collection["usu_celular"]),
+                Email = collection["usu_email"],
+                Genero = collection["usu_genero"],
+                Aprendiz = collection["usu_aprendiz"],
+                Egresado = collection["usu_egresado"],
+                AreaFormacion = collection["usu_areaFormacion"],
+                FechaEgresado = DateTime.Parse(collection["usu_fechaEgresado"].ToString()),
+                Direccion = collection["usu_direccion"],
+                Barrio = collection["usu_barrio"],
+                Ciudad = collection["usu_ciudad"],
+                Departamento = collection["usu_departamento"]
+                //FechaRegistro = DateTime.Parse(collection["usu_fechaRegistro"].ToString())
+            };
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            mu.AgregarUsuario(usu);
+            return RedirectToAction("ConsultarTodos");
         }
 
         // GET: Home/Edit/5

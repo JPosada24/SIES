@@ -1,0 +1,118 @@
+﻿@model IEnumerable<SIES.Models.Usuario>
+
+@{
+    ViewBag.Title = "ConsultarTodos";
+    Layout = "~/Views/Shared/_PaginaPrincipal.cshtml";
+}
+
+<h2>Aprendices</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Documento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoDoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Celular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aprendiz)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Egresado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaFormacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaEgresado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Barrio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Documento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoDoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Celular)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aprendiz)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Egresado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AreaFormacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaEgresado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barrio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ciudad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaRegistro)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Documento }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Documento }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Documento })
+        </td>
+    </tr>
+}
+
+</table>
